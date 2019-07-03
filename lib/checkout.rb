@@ -17,7 +17,10 @@ class Checkout
 
   def scan(sku)
     raise SKUError.new "SKU does not exist" if !PRICES.key? sku
-    @scanned << sku
+    @scanned << {
+      sku: sku,
+      price: PRICES[sku]
+    }
   end
 
   def total
@@ -29,21 +32,16 @@ class Checkout
   private
 
   def calculate
-    scanned = @scanned.map do |sku|
-      {
-        sku: sku,
-        price: PRICES[sku]
-      }
-    end
+    altered_scanned = []
 
     @pricing_rules.each do |rule|
       case rule[:type]
       when 'BULK'
-        scanned = BulkRule.apply(rule, scanned)
+        altered_scanned = BulkRule.apply(rule, @scanned)
       end
     end
 
-    scanned
+    altered_scanned
   end
 end
 
