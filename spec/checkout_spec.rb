@@ -1,6 +1,6 @@
 require 'checkout'
 
-describe Checkout do
+describe Checkout::Checkout do
   let(:pricing_rules) do
     [
       {
@@ -27,7 +27,7 @@ describe Checkout do
   end
 
   it "raises an error if the sku doesn't exist" do
-    expect { co.scan(:something) }.to raise_error(SKUError, "SKU does not exist")
+    expect { co.scan(:something) }.to raise_error(Checkout::SKUError, "SKU does not exist")
   end
 
   it 'applies bulk discount if 5 ipads are bought' do

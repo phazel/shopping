@@ -1,6 +1,6 @@
 require 'bulk_rule'
 
-describe BulkRule do
+describe Checkout::Rules::BulkRule do
   let(:default_price) { BigDecimal("800") }
   let(:discounted_price) { BigDecimal("500") }
   let(:rule) do
@@ -22,11 +22,11 @@ describe BulkRule do
   context 'when over the minimum activation number' do
     let(:scanned) { [ipd, ipd, ipd] }
     let(:discounted) { [discounted_ipd, discounted_ipd, discounted_ipd] }
-    it { expect(BulkRule.apply(rule, scanned)).to eq discounted }
+    it { expect(described_class.apply(rule, scanned)).to eq discounted }
   end
 
   context 'when under the minimum activation number' do
     let(:scanned) { [ipd, ipd] }
-    it { expect(BulkRule.apply(rule, scanned)).to eq scanned }
+    it { expect(described_class.apply(rule, scanned)).to eq scanned }
   end
 end
