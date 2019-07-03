@@ -14,10 +14,17 @@ class Checkout
   end
 
   def scan(sku)
-    @total += PRICES[sku] if PRICES.key? sku
+    if PRICES.key? sku
+      @total += PRICES[sku]
+    else
+      raise SKUError.new "SKU does not exist"
+    end
   end
 
   def total
     @total
   end
+end
+
+class SKUError < StandardError
 end
