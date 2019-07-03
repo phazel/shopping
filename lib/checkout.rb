@@ -1,14 +1,16 @@
+require 'bigdecimal'
+
 class Checkout
 
   PRICES = {
-    ipd: 549.99,
-    mbp: 1399.99,
-    atv: 109.50,
-    vga: 30.00
+    ipd: BigDecimal("549.99"),
+    mbp: BigDecimal("1399.99"),
+    atv: BigDecimal("109.50"),
+    vga: BigDecimal("30.00")
   }
 
   def initialize()
-    @total = 0
+    @total = BigDecimal("0")
   end
 
   def scan(sku)

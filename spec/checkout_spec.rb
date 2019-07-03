@@ -5,7 +5,7 @@ describe Checkout do
 
   it 'can purchase a VGA adapter' do
     co.scan(:vga)
-    expect(co.total).to eq 30
+    expect(co.total).to eq BigDecimal("30")
   end
 
   it 'can purchase one of each product' do
@@ -13,6 +13,6 @@ describe Checkout do
     co.scan(:mbp)
     co.scan(:atv)
     co.scan(:vga)
-    expect(co.total).to eq 2089.48
+    expect(co.total).to eq BigDecimal("2089.48")
   end
 end
