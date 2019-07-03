@@ -1,9 +1,10 @@
-require 'pry'
-
 class Checkout
 
   PRICES = {
-    vga: 30
+    ipd: 549.99,
+    mbp: 1399.99,
+    atv: 109.50,
+    vga: 30.00
   }
 
   def initialize()
@@ -11,9 +12,7 @@ class Checkout
   end
 
   def scan(sku)
-    if PRICES.key? sku
-      @total += PRICES[sku]
-    end
+    @total += PRICES[sku] if PRICES.key? sku
   end
 
   def total
