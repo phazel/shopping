@@ -8,7 +8,7 @@ class Checkout
     mbp: BigDecimal("1399.99"),
     atv: BigDecimal("109.50"),
     vga: BigDecimal("30.00")
-  }
+  }.freeze
 
   def initialize(pricing_rules)
     @pricing_rules = pricing_rules
