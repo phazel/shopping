@@ -1,7 +1,5 @@
 # Shopping class
 
-It is assumed that this code is to be used as a module within a larger codebase.
-
 ## Setup
 
 - Install Ruby 2.6.3
@@ -26,4 +24,5 @@ If the SKU passed into the `scan` method isn't recognised, a `SKUError` will be 
 
 ## Assumptions
 
-The rules should be applied in the order that they're given.
+- The rules should be applied in the order that they're given.
+- This code is to be used as a module within a larger codebase, rather than deployed independently.
