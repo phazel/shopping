@@ -10,19 +10,16 @@ class Checkout
   }
 
   def initialize()
-    @total = BigDecimal("0")
+    @scanned = []
   end
 
   def scan(sku)
-    if PRICES.key? sku
-      @total += PRICES[sku]
-    else
-      raise SKUError.new "SKU does not exist"
-    end
+    raise SKUError.new "SKU does not exist" if !PRICES.key? sku
+    @scanned << sku
   end
 
   def total
-    @total
+    @scanned.reduce(0) { |total, sku| total += PRICES[sku] }
   end
 end
 
