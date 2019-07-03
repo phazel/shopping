@@ -9,7 +9,8 @@ class Checkout
     vga: BigDecimal("30.00")
   }
 
-  def initialize()
+  def initialize(pricing_rules)
+    @pricing_rules = pricing_rules
     @scanned = []
   end
 
@@ -19,7 +20,20 @@ class Checkout
   end
 
   def total
-    @scanned.reduce(0) { |total, sku| total += PRICES[sku] }
+    calculate.reduce(0) do
+      |total, purchase| total += purchase[:price]
+    end
+  end
+
+  private
+
+  def calculate
+    @scanned.map do |sku|
+      {
+        sku: sku,
+        price: PRICES[sku]
+      }
+    end
   end
 end
 

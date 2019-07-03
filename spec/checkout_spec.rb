@@ -1,7 +1,17 @@
 require 'checkout'
 
 describe Checkout do
-  let(:co) { described_class.new }
+  let(:pricing_rules) do
+    [
+      {
+        type: 'BULK',
+        sku: :ipd,
+        new_price: BigDecimal("499.99"),
+        minimum_activation_number: 5
+      }
+    ]
+  end
+  let(:co) { described_class.new(pricing_rules) }
 
   it 'can purchase a VGA adapter' do
     co.scan(:vga)
