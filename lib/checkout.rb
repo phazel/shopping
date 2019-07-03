@@ -25,24 +25,20 @@ module Checkout
     end
 
     def total
-      calculate.reduce(0) do
+      adjusted_prices.reduce(0) do
         |total, purchase| total += purchase[:price]
       end
     end
 
     private
 
-    def calculate
-      altered_scanned = []
-
-      @pricing_rules.each do |rule|
+    def adjusted_prices
+      @pricing_rules.reduce(@scanned) do |adjusted, rule|
         case rule[:type]
         when 'BULK'
-          altered_scanned = BulkRule.apply(rule, @scanned)
+          BulkRule.apply(rule, adjusted)
         end
       end
-
-      altered_scanned
     end
   end
 

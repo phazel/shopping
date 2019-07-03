@@ -23,12 +23,12 @@ describe Checkout::Rules::BulkRule do
     context 'when over the minimum activation number' do
       let(:scanned) { [ipd, ipd, ipd] }
       let(:discounted) { [discounted_ipd, discounted_ipd, discounted_ipd] }
-      it { expect(BulkRule.apply(rule, scanned)).to eq discounted }
+      it { expect(described_class.apply(rule, scanned)).to eq discounted }
     end
 
     context 'when under the minimum activation number' do
       let(:scanned) { [ipd, ipd] }
-      it { expect(BulkRule.apply(rule, scanned)).to eq scanned }
+      it { expect(described_class.apply(rule, scanned)).to eq scanned }
     end
   end
 end

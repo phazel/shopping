@@ -3,7 +3,7 @@ module Checkout
     class BulkRule
       def self.apply(rule, scanned)
         if meets_minimum_number(rule, scanned)
-          scanned = replace_prices(rule, scanned)
+          return replace_prices(rule, scanned)
         end
         scanned
       end
