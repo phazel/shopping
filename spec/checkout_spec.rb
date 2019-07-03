@@ -29,4 +29,9 @@ describe Checkout do
   it "raises an error if the sku doesn't exist" do
     expect { co.scan(:something) }.to raise_error(SKUError, "SKU does not exist")
   end
+
+  it 'applies bulk discount if 5 ipads are bought' do
+    5.times { co.scan(:ipd) }
+    expect(co.total).to eq BigDecimal("2499.95")
+  end
 end

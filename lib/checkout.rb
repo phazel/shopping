@@ -28,12 +28,24 @@ class Checkout
   private
 
   def calculate
-    @scanned.map do |sku|
+    scanned = @scanned.map do |sku|
       {
         sku: sku,
         price: PRICES[sku]
       }
     end
+
+    # for each bulk pricing rule, check if there are more than X many of that sku
+    # if there are, replace all their prices.
+    @pricing_rules.select { |rule| rule[:type] == 'BULK' }.each do |bulk_rule|
+      if @scanned.select { |sku| sku == bulk_rule[:sku] }.length >= bulk_rule[:minimum_activation_number]
+        scanned = scanned.map do |purchase|
+          purchase.merge({ price: bulk_rule[:new_price] })
+        end
+      end
+    end
+
+    scanned
   end
 end
 
