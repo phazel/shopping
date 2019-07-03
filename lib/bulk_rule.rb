@@ -1,8 +1,6 @@
 module Checkout
   module Rules
     class BulkRule
-      # for each bulk pricing rule, check if there are more than X many of that sku
-      # if there are, replace all their prices.
       def self.apply(rule, scanned)
         if meets_minimum_number(rule, scanned)
           scanned = replace_prices(rule, scanned)
