@@ -1,0 +1,32 @@
+require 'bulk_rule'
+
+describe BulkRule do
+  let(:default_price) { BigDecimal("800") }
+  let(:discounted_price) { BigDecimal("500") }
+  let(:rule) do
+    {
+      type: 'BULK',
+      sku: :ipd,
+      new_price: discounted_price,
+      minimum_activation_number: 3
+    }
+  end
+  let(:ipd) do
+    {
+      sku: :ipd,
+      price: default_price
+    }
+  end
+  let(:discounted_ipd) { ipd.merge({ price: discounted_price }) }
+
+  context 'when over the minimum activation number' do
+    let(:scanned) { [ipd, ipd, ipd] }
+    let(:discounted) { [discounted_ipd, discounted_ipd, discounted_ipd] }
+    it { expect(BulkRule.apply(rule, scanned)).to eq discounted }
+  end
+
+  context 'when under the minimum activation number' do
+    let(:scanned) { [ipd, ipd] }
+    it { expect(BulkRule.apply(rule, scanned)).to eq scanned }
+  end
+end
