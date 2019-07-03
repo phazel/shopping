@@ -36,8 +36,11 @@ class Checkout
       }
     end
 
-    @pricing_rules.select { |rule| rule[:type] == 'BULK' }.each do |bulk_rule|
-      scanned = BulkRule.apply(bulk_rule, scanned)
+    @pricing_rules.each do |rule|
+      case rule[:type]
+      when 'BULK'
+        scanned = BulkRule.apply(rule, scanned)
+      end
     end
 
     scanned

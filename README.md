@@ -23,3 +23,7 @@ It is assumed that this code is to be used as a module within a larger codebase.
 
 ###### SKUError
 If the SKU passed into the `scan` method isn't recognised, a `SKUError` will be returned.
+
+## Assumptions
+
+The rules should be applied in the order that they're given.

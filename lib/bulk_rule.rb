@@ -1,5 +1,3 @@
-require 'pry'
-
 class BulkRule
   # for each bulk pricing rule, check if there are more than X many of that sku
   # if there are, replace all their prices.
