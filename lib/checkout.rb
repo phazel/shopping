@@ -33,12 +33,18 @@ module Checkout
     private
 
     def adjusted_prices
-      @pricing_rules.reduce(@scanned) do |adjusted, rule|
+      scanned = @scanned.clone
+
+      @pricing_rules.each do |rule|
         case rule[:type]
         when 'BULK'
-          BulkRule.apply(rule, adjusted)
+          scanned = BulkRule.apply(rule, scanned)
+        when 'RATIO'
+          scanned = RatioRule.apply(rule, scanned)
         end
       end
+
+      scanned
     end
   end
 

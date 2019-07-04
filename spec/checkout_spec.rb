@@ -8,6 +8,11 @@ describe Checkout::Checkout do
         sku: :ipd,
         new_price: BigDecimal("499.99"),
         minimum_activation_number: 5
+      },
+      {
+        type: 'RATIO',
+        sku: :atv,
+        activation_number: 3
       }
     ]
   end
@@ -33,5 +38,10 @@ describe Checkout::Checkout do
   it 'applies bulk discount if 5 ipads are bought' do
     5.times { co.scan(:ipd) }
     expect(co.total).to eq BigDecimal("2499.95")
+  end
+
+  it 'applies ratio discount if 3 apple TVs are bought' do
+    3.times { co.scan(:atv) }
+    expect(co.total).to eq BigDecimal("219.00")
   end
 end
