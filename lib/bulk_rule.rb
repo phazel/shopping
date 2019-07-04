@@ -15,8 +15,8 @@ module Checkout
       end
 
       def self.replace_prices(rule, scanned)
-        scanned.map do |purchase|
-          purchase.merge({ price: rule[:new_price] })
+        scanned.map do |item|
+          item.merge({ price: rule[:new_price] })
         end
       end
     end
