@@ -46,5 +46,23 @@ describe Checkout::Rules::BundleRule do
         expect(described_class.apply(rule, scanned)).to eq discounted
       end
     end
+
+    context 'when there is one MacBook Pro and two VGA cables' do
+      let(:scanned) { [mbp, vga, vga] }
+      let(:discounted) { [mbp, free_vga, vga] }
+
+      it 'makes one VGA cable free' do
+        expect(described_class.apply(rule, scanned)).to eq discounted
+      end
+    end
+
+    context 'when there are two MacBook Pros and one VGA cable' do
+      let(:scanned) { [mbp, mbp, vga] }
+      let(:discounted) { [mbp, mbp, free_vga] }
+
+      it 'makes one VGA cable free' do
+        expect(described_class.apply(rule, scanned)).to eq discounted
+      end
+    end
   end
 end
