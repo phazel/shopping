@@ -1,4 +1,4 @@
-require 'bulk_rule'
+require 'rules/bulk_rule'
 
 describe Checkout::Rules::BulkRule do
   let(:default_price) { BigDecimal("800") }

@@ -1,4 +1,5 @@
 require 'bigdecimal'
+require_relative 'rules/rules'
 
 include Checkout::Rules
 

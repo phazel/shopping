@@ -1,4 +1,4 @@
-require 'bundle_rule'
+require 'rules/bundle_rule'
 
 describe Checkout::Rules::BundleRule do
   let(:rule) do

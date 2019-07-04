@@ -1,4 +1,4 @@
-require 'ratio_rule'
+require 'rules/ratio_rule'
 
 describe Checkout::Rules::RatioRule do
   let(:default_price) { BigDecimal("800") }
