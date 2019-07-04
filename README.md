@@ -1,4 +1,4 @@
-# Shopping class
+# Checkout module
 
 ## Setup
 
