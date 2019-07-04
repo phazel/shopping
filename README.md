@@ -20,7 +20,7 @@
 ### Errors
 
 ###### SKUError
-If the SKU passed into the `scan` method isn't recognised, a `SKUError` will be returned. The entire checkout process will be stopped.
+If the SKU passed into the `scan` method isn't recognised, a `SKUError` will be raised. The entire checkout process will be stopped.
 
 ## Assumptions
 
