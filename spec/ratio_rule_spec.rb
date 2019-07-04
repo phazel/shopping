@@ -21,7 +21,7 @@ describe Checkout::Rules::RatioRule do
   end
 
   def discounted_atv
-    atv.merge({ price: BigDecimal("0") })
+    atv_base.clone.merge({ price: BigDecimal("0") })
   end
 
   describe '.apply' do
