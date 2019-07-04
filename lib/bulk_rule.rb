@@ -16,7 +16,7 @@ module Checkout
 
       def self.replace_prices(rule, scanned)
         scanned.map do |item|
-          item.merge({ price: rule[:new_price] })
+          item[:sku] == rule[:sku] ? item.merge({ price: rule[:new_price] }) : item
         end
       end
     end

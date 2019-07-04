@@ -30,5 +30,12 @@ describe Checkout::Rules::BulkRule do
       let(:scanned) { [ipd, ipd] }
       it { expect(described_class.apply(rule, scanned)).to eq scanned }
     end
+
+    context 'when there are other types of items' do
+      let(:atv) { { sku: :atv, price: BigDecimal("100") } }
+      let(:scanned) { [ipd, ipd, atv, ipd] }
+      let(:discounted) { [discounted_ipd, discounted_ipd, atv, discounted_ipd] }
+      it { expect(described_class.apply(rule, scanned)).to eq discounted }
+    end
   end
 end
