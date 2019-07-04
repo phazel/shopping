@@ -44,4 +44,16 @@ describe Checkout::Checkout do
     3.times { co.scan(:atv) }
     expect(co.total).to eq BigDecimal("219.00")
   end
+
+  describe 'example scenarios' do
+    context 'when SKUs Scanned: atv, atv, atv, vga' do
+      before { [:atv, :atv, :atv, :vga].each { |sku| co.scan(sku) } }
+      it { expect(co.total).to eq BigDecimal("249.00") }
+    end
+
+    context 'when SKUs Scanned: atv, ipd, ipd, atv, ipd, ipd, ipd' do
+      before { [:atv, :ipd, :ipd, :atv, :ipd, :ipd, :ipd].each { |sku| co.scan(sku) } }
+      it { expect(co.total).to eq BigDecimal("2718.95") }
+    end
+  end
 end
