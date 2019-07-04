@@ -13,6 +13,11 @@ describe Checkout::Checkout do
         type: 'RATIO',
         sku: :atv,
         activation_number: 3
+      },
+      {
+        type: 'BUNDLE',
+        buy_one: :mbp,
+        get_one_free: :vga
       }
     ]
   end
@@ -24,11 +29,8 @@ describe Checkout::Checkout do
   end
 
   it 'can purchase one of each product' do
-    co.scan(:ipd)
-    co.scan(:mbp)
-    co.scan(:atv)
-    co.scan(:vga)
-    expect(co.total).to eq BigDecimal("2089.48")
+    [:ipd, :mbp, :atv, :vga].each { |sku| co.scan(sku) }
+    expect(co.total).to eq BigDecimal("2059.48")
   end
 
   it "raises an error if the sku doesn't exist" do
@@ -45,6 +47,11 @@ describe Checkout::Checkout do
     expect(co.total).to eq BigDecimal("219.00")
   end
 
+  it 'applies the bundle deal with Macbook Pro and VGA cable' do
+    [:mbp, :vga].each { |sku| co.scan(sku) }
+    expect(co.total).to eq BigDecimal("1399.99")
+  end
+
   describe 'example scenarios' do
     context 'when SKUs Scanned: atv, atv, atv, vga' do
       before { [:atv, :atv, :atv, :vga].each { |sku| co.scan(sku) } }
@@ -54,6 +61,11 @@ describe Checkout::Checkout do
     context 'when SKUs Scanned: atv, ipd, ipd, atv, ipd, ipd, ipd' do
       before { [:atv, :ipd, :ipd, :atv, :ipd, :ipd, :ipd].each { |sku| co.scan(sku) } }
       it { expect(co.total).to eq BigDecimal("2718.95") }
+    end
+
+    context 'when SKUs Scanned: mbp, vga, ipd' do
+      before { [:mbp, :vga, :ipd].each { |sku| co.scan(sku) } }
+      it { expect(co.total).to eq BigDecimal("1949.98") }
     end
   end
 end

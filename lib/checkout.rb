@@ -41,6 +41,8 @@ module Checkout
           scanned = BulkRule.apply(rule, scanned)
         when 'RATIO'
           scanned = RatioRule.apply(rule, scanned)
+        when 'BUNDLE'
+          scanned = BundleRule.apply(rule, scanned)
         end
       end
 
