@@ -4,6 +4,7 @@
 
 - Install Ruby 2.6.3
 - `gem install bundler`
+- `bundle install`
 -  Tests: `bundle exec rspec`
 
 ## API
